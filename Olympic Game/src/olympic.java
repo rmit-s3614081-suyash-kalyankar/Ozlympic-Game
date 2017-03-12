@@ -1,9 +1,12 @@
 
 public class olympic {
-
+	//The main entry point for the program.
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-
+		//create an object
+		Game game=new Game();
+		//run it!
+		game.runGame();
+		
 	}
 
 }
