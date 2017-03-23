@@ -1,7 +1,5 @@
 package ass1;
 
-
-
 public class Ozlympic {
 
 	public static void main(String[] args) {
@@ -10,10 +8,6 @@ public class Ozlympic {
 				
 				Driver driverObject = new Driver();
 				driverObject.menu();
-				driverObject.getUserInput();
+				//driverObject.getUserInput();
 			}
-
-
 	}
-
-
