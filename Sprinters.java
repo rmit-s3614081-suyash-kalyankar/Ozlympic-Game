@@ -1,8 +1,13 @@
-package ass1;
+package Participants;
 
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * 
+ * @author Wenbo Peng
+ *
+ */
 public class Sprinters implements Athletes {
 
 	public int compete(){
@@ -18,9 +23,10 @@ public class Sprinters implements Athletes {
 		
 		
 		listOfSprinters.add(new Participant("SP01","Edmund",32,"QLD",0,compete()));
-		listOfSprinters.add(new Participant("SP02","SuyashSP",25,"Vic",0,compete()));
-		listOfSprinters.add(new Participant("SP03","Ali",10,"Tas",0,compete()));
-		
+		listOfSprinters.add(new Participant("SP02","Suyash",25,"Vic",0,compete()));
+		listOfSprinters.add(new Participant("SP03","Ali",28,"Tas",0,compete()));
+		listOfSprinters.add(new Participant("SP04","Yogi",26,"Vic",0,compete()));
+		listOfSprinters.add(new Participant("SP05","Loki",27,"WA",0,compete()));
 		return listOfSprinters;
 		
 		

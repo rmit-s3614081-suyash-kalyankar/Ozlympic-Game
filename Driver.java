@@ -1,12 +1,23 @@
-package ass1;
+package Participants;
 
+/**
+ * @Suyash Kalyankar
+ */
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 import java.util.Scanner;
 
 public class Driver {
 	
+	Map<String,List<Participant>> finalResultMap = new HashMap<String,List<Participant>>(); 
+	Map<String,Participant> finalAthletePointsMap = new HashMap<String,Participant>(); 
+	int swimmerGameIdCounter = 1;
+	int cyclistGameIdCounter = 1;
+	int sprinterGameIdCounter = 1;
 	// Displays the game menu
 	public void menu(){
 		
@@ -46,11 +57,13 @@ public class Driver {
 			
 			else if(userInput == 4){
 			//	System.out.println("user input 4");
+				displayFinalResult(finalResultMap);
 				getMenu();
 			}
 			
 			else if(userInput == 5){
 			//	System.out.println("user input 5");
+				displayAthletePoints(finalAthletePointsMap);
 				getMenu();
 			}
 			
@@ -66,48 +79,113 @@ public class Driver {
 		}
 	}
 
+	private void displayAthletePoints(Map<String, Participant> athletePointsMap) {
+		
+		for (Map.Entry<String, Participant> entry : athletePointsMap.entrySet()) {
+			System.out.println("Final Points of all Athletes ");
+			System.out.println("***************");
+			System.out.println("Player Id : " + entry.getKey() + "Player Name : " + entry.getValue().getName() + 
+					"Player Total Points : " + entry.getValue().getTotalPoints());
+		}
+	}
+//this will come in game class
+	private void displayFinalResult(Map<String, List<Participant>> finalResult) {
+		
+		for (Map.Entry<String, List<Participant>> entry : finalResult.entrySet()) {
+			System.out.println("Results of Game with game id : " + entry.getKey());
+			System.out.println("***************");
+			for(Participant p : entry.getValue()){
+				System.out.println("Player Name " + p.getName() + "Player points " + p.getTotalPoints());
+			}
+		}
+		
+	}
+// create a game class and in that game method
 	// Start the game - take the complete time of respective participant
 	private void startGame(Athletes ath , Participant userSelection ) {
 		
-		//ParticipantSort ps = new ParticipantSort();
-		if(ath instanceof Swimmers){
-			Swimmers s = new Swimmers();	
-			s.populateSwimmers();
-			List<Participant> abc = s.listOfSwimmers;
-			Collections.sort(abc);
-			for(int i =0 ; i<abc.size() ; i++){
-				System.out.println("name :" + abc.get(i).getName() +"state"+abc.get(i).getState() + "**complete time" + abc.get(i).getCompleteTime());
+		if (null !=userSelection) {
+			//ParticipantSort ps = new ParticipantSort();
+			if (ath instanceof Swimmers) {
+				Swimmers s = new Swimmers();
+				s.populateSwimmers();
+				List<Participant> abc = s.listOfSwimmers;
+				Collections.sort(abc);
+				abc = updatePoints(abc);
+				for (int i = 0; i < abc.size(); i++) {
+					System.out.println("name" + abc.get(i).getName()
+							+ "**complete time" + abc.get(i).getCompleteTime());
 				}
-			if(abc.get(0).getId().equals(userSelection.getId())){
-				System.out.println("You won !!");
-			}
-		}
-		else if (ath instanceof Cyclists){
-			Cyclists s = new Cyclists();	
-			List<Participant> abc = s.listOfCyclists;
-			Collections.sort(abc);
-			for(int i =0 ; i<abc.size() ; i++){
-				System.out.println("name :" + abc.get(i).getName() + "**complete time" + abc.get(i).getCompleteTime());
+				if (abc.get(0).getId().equals(userSelection.getId())) {
+					System.out.println("u won !!");
 				}
-			if(abc.get(0).getId().equals(userSelection.getId())){
-				System.out.println("You won !!");
-			}
-		}
-		else if(ath instanceof Sprinters){
-			Sprinters s = new Sprinters();
-			List<Participant> abc = s.listOfSprinters;
-			Collections.sort(abc);
-			for(int i =0 ; i<abc.size() ; i++){
-				System.out.println("name" + abc.get(i).getName() + "**complete time" + abc.get(i).getCompleteTime());
+				updateTotalPoints(abc);
+				finalResultMap.put("SW" + swimmerGameIdCounter, abc);
+				swimmerGameIdCounter++;
+				
+			} else if (ath instanceof Cyclists) {
+				Cyclists s = new Cyclists();
+				s.populateCyclists();
+				List<Participant> abc = s.getListOfCyclists();
+				Collections.sort(abc);
+				abc = updatePoints(abc);
+				for (int i = 0; i < abc.size(); i++) {
+					System.out.println("name" + abc.get(i).getName()
+							+ "**complete time" + abc.get(i).getCompleteTime());
 				}
-			if(abc.get(0).getId().equals(userSelection.getId())){
-				System.out.println("You won !!");
+				if (abc.get(0).getId().equals(userSelection.getId())) {
+					System.out.println("You won !!");
+				}
+				updateTotalPoints(abc);
+				finalResultMap.put("CY" + cyclistGameIdCounter, abc);
+				cyclistGameIdCounter++;
+				
+			} else if (ath instanceof Sprinters) {
+				Sprinters s = new Sprinters();
+				s.populateSprinters();
+				List<Participant> abc = s.listOfSprinters;
+				Collections.sort(abc);
+				abc = updatePoints(abc);
+				for (int i = 0; i < abc.size(); i++) {
+					System.out.println("name" + abc.get(i).getName()
+							+ "**complete time" + abc.get(i).getCompleteTime());
+				}
+				if (abc.get(0).getId().equals(userSelection.getId())) {
+					System.out.println("You won !!");
+				}
+				
+				updateTotalPoints(abc);
+				finalResultMap.put("SP" + sprinterGameIdCounter, abc);
+				sprinterGameIdCounter++;
 			}
+		}else{
+			System.out.println("Please predict first and then start the game");
 		}
-			
 		
 	}
 
+	/**
+	 * @param abc
+	 * @param i
+	 */
+	public void updateTotalPoints(List<Participant> abc) {
+			for (int i = 0; i < abc.size(); i++) {
+				if(!finalAthletePointsMap.containsKey(abc.get(i).getId())) {
+						finalAthletePointsMap.put(abc.get(i).getId(),abc.get(i));
+					}else{
+						abc.get(i).setTotalPoints(abc.get(i).getTotalPoints() + finalAthletePointsMap.get(abc.get(i).getId()).getTotalPoints());
+						finalAthletePointsMap.put(abc.get(i).getId(),abc.get(i));
+					}
+			}
+	}
+
+	public List<Participant> updatePoints(List<Participant> abc){
+		abc.get(0).setTotalPoints(5);
+		abc.get(1).setTotalPoints(3);
+		abc.get(2).setTotalPoints(2);
+		return abc;
+		
+	}
 	/**
 	 * 
 	 */
@@ -189,7 +267,7 @@ public class Driver {
 		else if (ath instanceof Cyclists){
 			Cyclists s = new Cyclists();	
 			s.populateCyclists();
-			for(Participant p:s.listOfCyclists){
+			for(Participant p:s.getListOfCyclists()){
 				abc.add(p);
 				}
 		}

@@ -1,5 +1,9 @@
-package ass1;
-
+package Participants;
+/**
+ * 
+ * @author Wenbo Peng
+ *
+ */
 public class Participant implements Comparable<Participant> {
 	
 	
@@ -74,5 +78,7 @@ public class Participant implements Comparable<Participant> {
 	}
 	
 	
+	
+	}
 
-}
+
