@@ -1,8 +1,5 @@
-package Participants;
+package Console;
 
-/**
- * @Suyash Kalyankar
- */
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -10,6 +7,12 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
+
+import Participants.Athletes;
+import Participants.Cyclists;
+import Participants.Participant;
+import Participants.Sprinters;
+import Participants.Swimmers;
 
 public class Driver {
 	
@@ -32,13 +35,13 @@ public class Driver {
 			userInput = getUserInput();
 			
 			if(userInput == 1){
-				//System.out.println("user input 1");
+				//System.out.println("user inpput 1");
 				ath=selectGame();
 				getMenu();
 			}
 			
 			else if(userInput == 2){
-			//	System.out.println("user input 2");
+			//	System.out.println("user inpput 2");
 				// if game is not selected and user is directly predicting , prompting the user to main menu
 				if(null==ath){
 					System.out.println("Please select game first");
@@ -50,25 +53,25 @@ public class Driver {
 			}
 
 			else if(userInput == 3){
-				//System.out.println("user input 3");
+				//System.out.println("user inpput 3");
 				startGame(ath , userSelection );
 				getMenu(); 
 			}
 			
 			else if(userInput == 4){
-			//	System.out.println("user input 4");
+			//	System.out.println("user inpput 4");
 				displayFinalResult(finalResultMap);
 				getMenu();
 			}
 			
 			else if(userInput == 5){
-			//	System.out.println("user input 5");
+			//	System.out.println("user inpput 5");
 				displayAthletePoints(finalAthletePointsMap);
 				getMenu();
 			}
 			
 			else if(userInput == 6){
-			//	System.out.println("user input 6");
+			//	System.out.println("user inpput 6");
 			}
 			
 			else{
@@ -88,7 +91,7 @@ public class Driver {
 					"Player Total Points : " + entry.getValue().getTotalPoints());
 		}
 	}
-//this will come in game class
+
 	private void displayFinalResult(Map<String, List<Participant>> finalResult) {
 		
 		for (Map.Entry<String, List<Participant>> entry : finalResult.entrySet()) {
@@ -100,7 +103,7 @@ public class Driver {
 		}
 		
 	}
-// create a game class and in that game method
+
 	// Start the game - take the complete time of respective participant
 	private void startGame(Athletes ath , Participant userSelection ) {
 		
@@ -114,7 +117,7 @@ public class Driver {
 				abc = updatePoints(abc);
 				for (int i = 0; i < abc.size(); i++) {
 					System.out.println("name" + abc.get(i).getName()
-							+ "**complete time" + abc.get(i).getCompleteTime());
+							+ "**complete time" + abc.get(i).getCompeteTime());
 				}
 				if (abc.get(0).getId().equals(userSelection.getId())) {
 					System.out.println("u won !!");
@@ -126,15 +129,15 @@ public class Driver {
 			} else if (ath instanceof Cyclists) {
 				Cyclists s = new Cyclists();
 				s.populateCyclists();
-				List<Participant> abc = s.getListOfCyclists();
+				List<Participant> abc = s.listOfCyclists;
 				Collections.sort(abc);
 				abc = updatePoints(abc);
 				for (int i = 0; i < abc.size(); i++) {
 					System.out.println("name" + abc.get(i).getName()
-							+ "**complete time" + abc.get(i).getCompleteTime());
+							+ "**complete time" + abc.get(i).getCompeteTime());
 				}
 				if (abc.get(0).getId().equals(userSelection.getId())) {
-					System.out.println("You won !!");
+					System.out.println("u won !!");
 				}
 				updateTotalPoints(abc);
 				finalResultMap.put("CY" + cyclistGameIdCounter, abc);
@@ -148,10 +151,10 @@ public class Driver {
 				abc = updatePoints(abc);
 				for (int i = 0; i < abc.size(); i++) {
 					System.out.println("name" + abc.get(i).getName()
-							+ "**complete time" + abc.get(i).getCompleteTime());
+							+ "**complete time" + abc.get(i).getCompeteTime());
 				}
 				if (abc.get(0).getId().equals(userSelection.getId())) {
-					System.out.println("You won !!");
+					System.out.println("u won !!");
 				}
 				
 				updateTotalPoints(abc);
@@ -267,7 +270,7 @@ public class Driver {
 		else if (ath instanceof Cyclists){
 			Cyclists s = new Cyclists();	
 			s.populateCyclists();
-			for(Participant p:s.getListOfCyclists()){
+			for(Participant p:s.listOfCyclists){
 				abc.add(p);
 				}
 		}
