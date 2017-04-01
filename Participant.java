@@ -12,16 +12,16 @@ public class Participant implements Comparable<Participant> {
 	private int age ;
 	private String state ;
 	private int totalPoints ;
-	private int completeTime ;
+	private int competeTime ;
 	
 
-	public Participant(String id, String name, int age, String state,int totalPoints,int completeTime) {
+	public Participant(String id, String name, int age, String state,int totalPoints,int competeTime) {
 		this.id = id;
 		this.name = name;
 		this.age = age;
 		this.state = state;
 		this.totalPoints = totalPoints;
-		this.completeTime = completeTime;
+		this.competeTime = competeTime;
 	}
 
 	public String getId() {
@@ -64,17 +64,17 @@ public class Participant implements Comparable<Participant> {
 		this.totalPoints = totalPoints;
 	}
 	
-	public int getCompleteTime() {
-		return completeTime;
+	public int getCompeteTime() {
+		return competeTime;
 	}
 	
-	public void setCompleteTime(int completeTime) {
-		this.completeTime = completeTime;
+	public void setCompeteTime(int completeTime) {
+		this.competeTime = competeTime;
 	}
 
 	@Override
 	public int compareTo(Participant p) {
-		return completeTime - p.completeTime;
+		return competeTime - p.competeTime;
 	}
 	
 	

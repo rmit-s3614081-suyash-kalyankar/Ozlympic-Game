@@ -17,7 +17,7 @@ public class Sprinters implements Athletes {
 		return sprintTime;
 	}
 	
-	List<Participant> listOfSprinters = new ArrayList<Participant>();
+	public List<Participant> listOfSprinters = new ArrayList<Participant>();
 	
 	public List<Participant> populateSprinters(){
 		

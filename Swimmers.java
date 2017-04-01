@@ -18,7 +18,7 @@ public class Swimmers implements Athletes  {
 		
 	}
  
-	List<Participant> listOfSwimmers = new ArrayList<Participant>();
+	public List<Participant> listOfSwimmers = new ArrayList<Participant>();
 	
 	public List<Participant> populateSwimmers(){
 		
@@ -32,6 +32,5 @@ public class Swimmers implements Athletes  {
 		
 		
 	}
-	
 
 }
