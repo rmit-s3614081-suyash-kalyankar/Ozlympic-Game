@@ -1,10 +1,11 @@
 package Console;
 
-/**
+/**@Suyash Kalyankar
  * 
- * @author suyashkalyankar
+ * 
  *
  */
+
 public class Ozlympic {
 
 	public static void main(String[] args) {
