@@ -8,10 +8,10 @@ import java.util.Map;
 import java.util.Random;
 import java.util.Scanner;
 
-import Participants.Athletes;
+import Participants.Compete;
 import Participants.Cyclists;
 import Participants.Database;
-import Participants.Participant;
+import Participants.Athlete;
 import Participants.Sprinters;
 import Participants.Swimmers;
 
@@ -31,9 +31,9 @@ public class Driver {
 		
 		getMenu();
 		
-		Athletes athletes = null;
-		Participant userSelection = null;
-		List<Participant> abc = null;
+		Compete athletes = null;
+		Athlete userSelection = null;
+		List<Athlete> abc = null;
 		
 		for (int userInput = 0; userInput < 7; userInput++) {
 			
@@ -46,7 +46,7 @@ public class Driver {
 			}
 			
 			else if(userInput == 2){
-				 abc = new ArrayList<Participant>();
+				 abc = new ArrayList<Athlete>();
 			;
 				// if game is not selected and user is directly predicting , prompting the user to main menu
 				if(null==athletes){
@@ -128,7 +128,7 @@ public class Driver {
 	}
 	
 	// select a game to run
-	public Athletes selectGame(){
+	public Compete selectGame(){
 		
 		System.out.println("Select a Game to run");
 		System.out.println("=========================");
@@ -138,7 +138,7 @@ public class Driver {
 		
 		int userInput = getUserInput();
 		
-		Athletes selectgame = null;
+		Compete selectgame = null;
 		
 		if(userInput == 1){
 			selectgame = new Swimmers();
@@ -163,7 +163,7 @@ public class Driver {
 	
 	// Predict the winner of the game -- Give user list of participants and take the user's prediction 
 	
-	public Participant predictWinner(Athletes ath,List<Participant> abc) {
+	public Athlete predictWinner(Compete ath,List<Athlete> abc) {
 
 		System.out.println("Please predict the winner of the game. Below is the list of participants. Please choose one amongst them");
 		System.out.println("=========================");
@@ -171,13 +171,13 @@ public class Driver {
 		Random randomNumberOfPlayers = new Random();
 		int randomNumber = randomNumberOfPlayers.nextInt(7);
 		randomNumber++;
-		Participant userSelection = null;
+		Athlete userSelection = null;
 
 		if (randomNumber <= 4) {
 			System.out.println("Game is cancelled since there are less than 4 participants.Please start again");
 		} else {
 
-			List<Participant> allParticipant = new ArrayList<Participant>();
+			List<Athlete> allParticipant = new ArrayList<Athlete>();
 			Database game = new Database();
 
 			
@@ -186,30 +186,30 @@ public class Driver {
 				
 				game.populateSwimmers();
 				game.populateSA(ath);
-				for (Participant Swimmer : game.listOfSwimmers) {
+				for (Athlete Swimmer : game.listOfSwimmers) {
 					allParticipant.add(Swimmer);
 				}
-				for (Participant superAthlete : game.listOfSA) {
+				for (Athlete superAthlete : game.listOfSA) {
 					allParticipant.add(superAthlete);
 				}
 			} else if (ath instanceof Cyclists) {
 				
 				game.populateCyclists();
 				game.populateSA(ath);
-				for (Participant Cyclists : game.listOfCyclists) {
+				for (Athlete Cyclists : game.listOfCyclists) {
 					allParticipant.add(Cyclists);
 				}
-				for (Participant superAthlete : game.listOfSA) {
+				for (Athlete superAthlete : game.listOfSA) {
 					allParticipant.add(superAthlete);
 				}
 			} else if (ath instanceof Sprinters) {
 				
 				game.populateSprinters();
 				game.populateSA(ath);
-				for (Participant Sprinter : game.listOfSprinters) {
+				for (Athlete Sprinter : game.listOfSprinters) {
 					allParticipant.add(Sprinter);
 				}
-				for (Participant superAthlete : game.listOfSA) {
+				for (Athlete superAthlete : game.listOfSA) {
 					allParticipant.add(superAthlete);
 				}
 			}
@@ -220,7 +220,7 @@ public class Driver {
 			}
 
 			int i = 1;
-			for (Participant players : abc) {
+			for (Athlete players : abc) {
 				System.out.println(i + "." + players.getName());
 				i++;
 			}
@@ -239,11 +239,8 @@ public class Driver {
 		return userSelection;
 
 	}
-	/**
-	 @param abc
-	 * @param i
-	 */
-	public void updateTotalPoints(List<Participant> list) {
+	
+	public void updateTotalPoints(List<Athlete> list) {
 			for (int i = 0; i < list.size(); i++) {
 				if(!finalAthletePointsMap.containsKey(list.get(i).getId())) {
 						finalAthletePointsMap.put(list.get(i).getId(),list.get(i));
@@ -254,7 +251,7 @@ public class Driver {
 			}
 	}
 
-	public List<Participant> updatePoints(List<Participant> abc){
+	public List<Athlete> updatePoints(List<Athlete> abc){
 		abc.get(0).setTotalPoints(5);
 		abc.get(1).setTotalPoints(2);
 		abc.get(2).setTotalPoints(1);
@@ -264,7 +261,7 @@ public class Driver {
 	
 
 	// Start the game - take the complete time of respective participant
-private void startGame(Athletes athlete ,List<Participant> result, Participant userSelection ) {
+private void startGame(Compete athlete ,List<Athlete> result, Athlete userSelection ) {
 	
 	if (null !=userSelection) {
 		
@@ -321,12 +318,12 @@ private void startGame(Athletes athlete ,List<Participant> result, Participant u
 }
 
 //Results of all the games played and Refree assigned to each game with their id
-private void displayFinalResult(Map<String, List<Participant>> finalResult) {
+private void displayFinalResult(Map<String, List<Athlete>> finalResult) {
 	
-	for (Map.Entry<String, List<Participant>> entry : finalResult.entrySet()) {
+	for (Map.Entry<String, List<Athlete>> entry : finalResult.entrySet()) {
 		System.out.println("Results of Game with game id : " + entry.getKey());
 		System.out.println("***************");
-		for(Participant p : entry.getValue()){
+		for(Athlete p : entry.getValue()){
 			System.out.println("Player Name : " + p.getName() + "---- Player points :" + p.getTotalPoints());
 		}
 		Database game = new Database();
@@ -344,15 +341,15 @@ private void displayFinalResult(Map<String, List<Participant>> finalResult) {
 }
 
 //Displaying the Final Result of all athletes including superAthlete
-Map<String,List<Participant>> finalResultMap = new HashMap<String,List<Participant>>(); 
-Map<String,Participant> finalAthletePointsMap = new HashMap<String,Participant>(); 
+Map<String,List<Athlete>> finalResultMap = new HashMap<String,List<Athlete>>(); 
+Map<String,Athlete> finalAthletePointsMap = new HashMap<String,Athlete>(); 
 int swimmerGameIdCounter = 1;
 int cyclistGameIdCounter = 1;
 int sprinterGameIdCounter = 1;
 
-private void displayAthletePoints(Map<String, Participant> athletePointsMap) {
+private void displayAthletePoints(Map<String, Athlete> athletePointsMap) {
 
-for (Map.Entry<String, Participant> entry : athletePointsMap.entrySet()) {
+for (Map.Entry<String, Athlete> entry : athletePointsMap.entrySet()) {
 	System.out.println("Final Points of all Athletes ");
 	System.out.println("***************");
 	System.out.println("Player Id : " + entry.getKey() + "---- Player Name : " + entry.getValue().getName() + "---- Player State :"+entry.getValue().getState()+

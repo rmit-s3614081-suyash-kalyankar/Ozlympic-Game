@@ -7,7 +7,7 @@ package Participants;
  */
 
 
-public class Sprinters implements Athletes {
+public class Sprinters implements Compete {
 
 	public int compete(){
 		
