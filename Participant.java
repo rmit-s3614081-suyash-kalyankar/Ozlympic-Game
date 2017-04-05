@@ -1,9 +1,11 @@
 package Participants;
-/**
+
+/**@Wenbo peng
  * 
- * @author Wenbo Peng
+ * 
  *
  */
+
 public class Participant implements Comparable<Participant> {
 	
 	
@@ -12,16 +14,16 @@ public class Participant implements Comparable<Participant> {
 	private int age ;
 	private String state ;
 	private int totalPoints ;
-	private int competeTime ;
+	private int completeTime ;
 	
 
-	public Participant(String id, String name, int age, String state,int totalPoints,int competeTime) {
+	public Participant(String id, String name, int age, String state,int totalPoints,int completeTime) {
 		this.id = id;
 		this.name = name;
 		this.age = age;
 		this.state = state;
 		this.totalPoints = totalPoints;
-		this.competeTime = competeTime;
+		this.completeTime = completeTime;
 	}
 
 	public String getId() {
@@ -64,21 +66,19 @@ public class Participant implements Comparable<Participant> {
 		this.totalPoints = totalPoints;
 	}
 	
-	public int getCompeteTime() {
-		return competeTime;
+	public int getCompleteTime() {
+		return completeTime;
 	}
 	
-	public void setCompeteTime(int completeTime) {
-		this.competeTime = competeTime;
+	public void setCompleteTime(int completeTime) {
+		this.completeTime = completeTime;
 	}
 
 	@Override
 	public int compareTo(Participant p) {
-		return competeTime - p.competeTime;
+		return completeTime - p.completeTime;
 	}
 	
 	
-	
-	}
 
-
+}
