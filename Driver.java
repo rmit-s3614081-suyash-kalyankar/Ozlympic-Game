@@ -19,11 +19,20 @@ import Participants.Swimmers;
 /**@Suyash Kalyankar
  * 
  * 
+ * 
  *
  */
 
 
 public class Driver {
+	
+	
+	Map<String,List<Athlete>> finalResultMap = new HashMap<String,List<Athlete>>(); 
+	Map<String,Athlete> finalAthletePointsMap = new HashMap<String,Athlete>(); 
+	int swimmerGameIdCounter = 1;
+	int cyclistGameIdCounter = 1;
+	int sprinterGameIdCounter = 1;
+	
 	
 	
 	// Displays the game menu
@@ -49,7 +58,8 @@ public class Driver {
 				 abc = new ArrayList<Athlete>();
 			;
 				// if game is not selected and user is directly predicting , prompting the user to main menu
-				if(null==athletes){
+				
+			if(null==athletes){
 					System.out.println("Please select game first");
 					menu();
 				}else{
@@ -168,6 +178,10 @@ public class Driver {
 		System.out.println("Please predict the winner of the game. Below is the list of participants. Please choose one amongst them");
 		System.out.println("=========================");
 
+		
+		
+		//Randomly generates the list of players , game will be cancelled if the athletes are less than 4
+		
 		Random randomNumberOfPlayers = new Random();
 		int randomNumber = randomNumberOfPlayers.nextInt(7);
 		randomNumber++;
@@ -238,24 +252,24 @@ public class Driver {
 		}
 		return userSelection;
 
-	}
+	} 
 	
 	public void updateTotalPoints(List<Athlete> list) {
 			for (int i = 0; i < list.size(); i++) {
-				if(!finalAthletePointsMap.containsKey(list.get(i).getId())) {
-						finalAthletePointsMap.put(list.get(i).getId(),list.get(i));
+				String gameId = list.get(i).getId();
+				if(!finalAthletePointsMap.containsKey(gameId)) {
+						finalAthletePointsMap.put(gameId,list.get(i));
 					}else{
-						list.get(i).setTotalPoints(list.get(i).getTotalPoints() + finalAthletePointsMap.get(list.get(i).getId()).getTotalPoints());
-						finalAthletePointsMap.put(list.get(i).getId(),list.get(i));
+						finalAthletePointsMap.get(gameId).setTotalPoints(finalAthletePointsMap.get(gameId).getTotalPoints()+ list.get(i).getTotalPoints());
 					}
 			}
 	}
 
-	public List<Athlete> updatePoints(List<Athlete> abc){
-		abc.get(0).setTotalPoints(5);
-		abc.get(1).setTotalPoints(2);
-		abc.get(2).setTotalPoints(1);
-		return abc;
+	public List<Athlete> updatePoints(List<Athlete> points){
+		points.get(0).setTotalPoints(5);
+		points.get(1).setTotalPoints(2);
+		points.get(2).setTotalPoints(1);
+		return points;
 		
 	}
 	
@@ -276,8 +290,8 @@ private void startGame(Compete athlete ,List<Athlete> result, Athlete userSelect
 			if (result.get(0).getId().equals(userSelection.getId())) {
 				System.out.println("User  won !!");
 			}
-			updateTotalPoints(result);
 			finalResultMap.put("SW" + swimmerGameIdCounter, result);
+		
 			swimmerGameIdCounter++;
 			
 		} else if (athlete instanceof Cyclists) {
@@ -291,8 +305,8 @@ private void startGame(Compete athlete ,List<Athlete> result, Athlete userSelect
 			if (result.get(0).getId().equals(userSelection.getId())) {
 				System.out.println("User won !!");
 			}
-			updateTotalPoints(result);
 			finalResultMap.put("CY" + cyclistGameIdCounter, result);
+			
 			cyclistGameIdCounter++;
 			
 		} else if (athlete instanceof Sprinters) {
@@ -307,8 +321,8 @@ private void startGame(Compete athlete ,List<Athlete> result, Athlete userSelect
 				System.out.println("User won !!");
 			}
 			
-			updateTotalPoints(result);
 			finalResultMap.put("SP" + sprinterGameIdCounter, result);
+	
 			sprinterGameIdCounter++;
 		}
 	}else{
@@ -317,7 +331,9 @@ private void startGame(Compete athlete ,List<Athlete> result, Athlete userSelect
 	
 }
 
-//Results of all the games played and Refree assigned to each game with their id
+//Results of all the games played and Referee assigned to each game with their id
+
+
 private void displayFinalResult(Map<String, List<Athlete>> finalResult) {
 	
 	for (Map.Entry<String, List<Athlete>> entry : finalResult.entrySet()) {
@@ -341,14 +357,14 @@ private void displayFinalResult(Map<String, List<Athlete>> finalResult) {
 }
 
 //Displaying the Final Result of all athletes including superAthlete
-Map<String,List<Athlete>> finalResultMap = new HashMap<String,List<Athlete>>(); 
-Map<String,Athlete> finalAthletePointsMap = new HashMap<String,Athlete>(); 
-int swimmerGameIdCounter = 1;
-int cyclistGameIdCounter = 1;
-int sprinterGameIdCounter = 1;
+
 
 private void displayAthletePoints(Map<String, Athlete> athletePointsMap) {
 
+for (Map.Entry<String, List<Athlete>> entry : finalResultMap.entrySet()) {
+	updateTotalPoints(entry.getValue());
+}
+	
 for (Map.Entry<String, Athlete> entry : athletePointsMap.entrySet()) {
 	System.out.println("Final Points of all Athletes ");
 	System.out.println("***************");

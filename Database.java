@@ -30,7 +30,7 @@ public class Database {
 		listOfSwimmers.add(new Athlete("SW03","Ali",24,"SA",0,swim.compete()));
 		listOfSwimmers.add(new Athlete("SW04","loki",29,"WA",0,swim.compete()));
 		listOfSwimmers.add(new Athlete("SW05","Alam",32,"NSW",0,swim.compete()));
-		listOfSwimmers.add(new Athlete("SW06","Happy",24,"Vic",0,swim.compete()));
+		
 		return listOfSwimmers;
 		
 		
@@ -64,8 +64,8 @@ public class Database {
 		listOfSprinters.add(new Athlete("SP01","Gaurav",28,"Vic",0,sprint.compete()));
 		listOfSprinters.add(new Athlete("SP02","Cass",22,"Vic",0,sprint.compete()));
 		listOfSprinters.add(new Athlete("SP03","yog",29,"QLD",0,sprint.compete()));
-		listOfSprinters.add(new Athlete("SP05","Anky",26,"SA",0,sprint.compete()));
-		listOfSprinters.add(new Athlete("SP04","Homy",26,"WA",0,sprint.compete()));
+		listOfSprinters.add(new Athlete("SP04","Anky",26,"SA",0,sprint.compete()));
+		listOfSprinters.add(new Athlete("SP05","Homy",26,"WA",0,sprint.compete()));
 		
 		return listOfSprinters;
 		
@@ -76,22 +76,22 @@ public class Database {
 	
 	public List<Athlete> listOfSA = new ArrayList<Athlete>();
 	
-	public List<Athlete> populateSA(Compete ath){
+	public List<Athlete> populateSA(Compete superathletes){
 		
-		if(ath instanceof Swimmers){
+		if(superathletes instanceof Swimmers){
 			listOfSA.add(new Athlete("SA01","Ed",22,"Vic",0,swim.compete()));
 			listOfSA.add(new Athlete("SA02","Bredon",24,"QLD",0,swim.compete()));
 			listOfSA.add(new Athlete("SA03","Joshua",29,"WA",0,swim.compete()));
 		}
-		else if(ath instanceof Sprinters){
-			listOfSA.add(new Athlete("SP01","Ed",22,"Vic",0,sprint.compete()));
-			listOfSA.add(new Athlete("SP02","Bredon",24,"QLD",0,sprint.compete()));
-			listOfSA.add(new Athlete("SP03","Joshua",29,"WA",0,sprint.compete()));
+		else if(superathletes instanceof Sprinters){
+			listOfSA.add(new Athlete("SA01","Ed",22,"Vic",0,sprint.compete()));
+			listOfSA.add(new Athlete("SA02","Bredon",24,"QLD",0,sprint.compete()));
+			listOfSA.add(new Athlete("SA03","Joshua",29,"WA",0,sprint.compete()));
 		}
-		else if(ath instanceof Cyclists){
-			listOfSA.add(new Athlete("CY01","Ed",22,"Vic",0,sprint.compete()));
-			listOfSA.add(new Athlete("CY02","Bredon",24,"QLD",0,cycle.compete()));
-			listOfSA.add(new Athlete("CY03","Joshua",29,"WA",0,cycle.compete()));
+		else if(superathletes instanceof Cyclists){
+			listOfSA.add(new Athlete("SA01","Ed",22,"Vic",0,cycle.compete()));
+			listOfSA.add(new Athlete("SA02","Bredon",24,"QLD",0,cycle.compete()));
+			listOfSA.add(new Athlete("SA03","Joshua",29,"WA",0,cycle.compete()));
 		}
 		
 		return listOfSA;
@@ -99,7 +99,7 @@ public class Database {
 		
 	}
 	
-	//List of All Refree which will Assign points to the Athletes depending on their finishing time and Winner will be announced
+	//List of All Referee which will Assign points to the Athletes depending on their finishing time and Winner will be announced
 	
 public List<Refree> listOfRefree = new ArrayList<Refree>();
 	
